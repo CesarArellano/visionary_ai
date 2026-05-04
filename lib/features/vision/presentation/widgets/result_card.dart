@@ -4,15 +4,35 @@ import 'package:visionary_ai/core/theme/app_theme.dart';
 import 'package:visionary_ai/core/utils/haptic_utils.dart';
 import 'package:visionary_ai/features/vision/presentation/providers/tts_provider.dart';
 
-class ResultCard extends ConsumerWidget {
+class ResultCard extends ConsumerStatefulWidget {
   final String description;
 
   const ResultCard({super.key, required this.description});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final ttsState = ref.watch(ttsNotifierProvider);
+  ConsumerState<ResultCard> createState() => _ResultCardState();
+}
 
+class _ResultCardState extends ConsumerState<ResultCard> {
+
+  late final TtsNotifier _ttsNotifier;
+  
+  @override
+  void initState() {
+    super.initState();
+    _ttsNotifier = ref.read(ttsNotifierProvider.notifier);
+    _ttsNotifier.speak(widget.description);
+  }
+  
+  @override
+  void dispose() {
+    _ttsNotifier.stop();
+    super.dispose();
+  }
+  
+  @override
+  Widget build(BuildContext context) {
+    final ttsState = ref.watch(ttsNotifierProvider);
     return Semantics(
       liveRegion: true,
       label: 'AI description ready',
@@ -31,7 +51,7 @@ class ResultCard extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              description,
+              widget.description,
               style: const TextStyle(
                 fontSize: 16,
                 height: 1.5,
@@ -44,18 +64,23 @@ class ResultCard extends ConsumerWidget {
               children: [
                 Semantics(
                   button: true,
-                  label: 'Repeat description',
+                  label: ttsState.isSpeaking ? 'Stop description' : 'Repeat description',
                   child: TextButton.icon(
                     onPressed: () {
-                      HapticUtils.onPlay();
-                      ref.read(ttsNotifierProvider.notifier).speak(description);
+                      if (ttsState.isSpeaking) {
+                        _ttsNotifier.stop();
+                        return;
+                      } else {
+                        HapticUtils.onPlay();
+                        _ttsNotifier.speak(widget.description);
+                      }
                     },
                     icon: Icon(
-                      ttsState.isSpeaking ? Icons.volume_off : Icons.volume_up,
+                      ttsState.isSpeaking ? Icons.stop : Icons.volume_up,
                       color: AppTheme.accentColor,
                     ),
                     label: Text(
-                      ttsState.isSpeaking ? 'Speaking...' : 'Repeat',
+                      ttsState.isSpeaking ? 'Stop' : 'Repeat',
                       style: const TextStyle(color: AppTheme.accentColor),
                     ),
                   ),

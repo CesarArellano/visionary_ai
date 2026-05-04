@@ -17,8 +17,8 @@ class CaptureButton extends ConsumerWidget {
     return Semantics(
       button: true,
       label: 'Take a photo',
-      child: GestureDetector(
-        onTap: visionState.isLoading
+      child: IconButton(
+        onPressed: visionState.isLoading
             ? null
             : () async {
                 HapticUtils.onCapture();
@@ -28,25 +28,16 @@ class CaptureButton extends ConsumerWidget {
                   ref.read(visionNotifierProvider.notifier).analyzeImage(image);
                 }
               },
-        child: Container(
-          width: 80,
-          height: 80,
-          decoration: BoxDecoration(
-            color: AppTheme.primaryVariant,
-            shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(
-                color: AppTheme.primaryVariant.withAlpha(128),
-                blurRadius: 20,
-                spreadRadius: 2,
-              ),
-            ],
-          ),
-          child: Icon(
-            Icons.camera_alt,
-            color: AppTheme.onPrimary,
-            size: 36,
-          ),
+        icon: Icon(
+          Icons.camera_alt,
+          color: AppTheme.onPrimary,
+          size: 36,
+        ),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppTheme.primaryVariant,
+          disabledBackgroundColor: AppTheme.primaryVariant.withValues(alpha: 0.6),
+          shape: const CircleBorder(),
+          padding: const EdgeInsets.all(20),
         ),
       ),
     );

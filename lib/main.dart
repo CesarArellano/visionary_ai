@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:simple_secure_storage/simple_secure_storage.dart';
+
 import 'package:visionary_ai/core/injection/injection_container.dart';
 import 'package:visionary_ai/core/router/app_router.dart';
 import 'package:visionary_ai/core/theme/app_theme.dart';
@@ -8,9 +10,12 @@ import 'package:visionary_ai/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await SimpleSecureStorage.initialize();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform
   );
+  
   await initDependencies();
   runApp(const ProviderScope(child: VisionaryApp()));
 }

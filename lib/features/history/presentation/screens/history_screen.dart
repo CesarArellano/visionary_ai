@@ -1,17 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+
 import 'package:visionary_ai/core/theme/app_theme.dart';
 import 'package:visionary_ai/core/utils/haptic_utils.dart';
 import 'package:visionary_ai/features/history/domain/entities/history_entry.dart';
 import 'package:visionary_ai/features/history/presentation/providers/history_provider.dart';
 import 'package:visionary_ai/features/vision/presentation/providers/tts_provider.dart';
 
-class HistoryScreen extends ConsumerWidget {
+class HistoryScreen extends ConsumerStatefulWidget {
   const HistoryScreen({super.key});
+  
+  @override
+  ConsumerState<HistoryScreen> createState() => _HistoryScreenState();
+}
+
+class _HistoryScreenState extends ConsumerState<HistoryScreen> {
+
+  late final TtsNotifier _ttsNotifier;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  void initState() {
+    super.initState();
+    _ttsNotifier = ref.read(ttsNotifierProvider.notifier);
+  }
+  
+  @override
+  void dispose() {
+    _ttsNotifier.stop();
+    super.dispose();
+  }
+  
+  @override
+  Widget build(BuildContext context) {
     final historyState = ref.watch(historyNotifierProvider);
 
     return Scaffold(
@@ -19,9 +40,9 @@ class HistoryScreen extends ConsumerWidget {
         title: const Text('History'),
       ),
       body: historyState.when(
-        data: (entries) => entries.isEmpty
+        data: (historyState) => historyState.historyEntries.isEmpty
             ? _buildEmptyState()
-            : _buildHistoryList(entries, ref),
+            : _buildHistoryList(historyState.historyEntries, ref),
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stack) => Center(
           child: Text(

@@ -14,7 +14,6 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final visionState = ref.watch(visionNotifierProvider);
-    final ttsState = ref.watch(ttsNotifierProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -42,12 +41,6 @@ class HomeScreen extends ConsumerWidget {
                   child: visionState.when(
                     data: (result) {
                       if (result != null) {
-                        WidgetsBinding.instance.addPostFrameCallback((_) {
-                          if (!ttsState.isSpeaking) {
-                            ref.read(ttsNotifierProvider.notifier).speak(result.description);
-                            HapticUtils.onResult();
-                          }
-                        });
                         return ResultCard(description: result.description);
                       }
                       return _buildIdleState();
