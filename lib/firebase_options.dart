@@ -52,7 +52,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDgoi8ACFBEzUTQuPwZyr4EWVTB-AgaocY',
-    appId: '1:49514259492:android:c5552edc9223d5703524b1',
+    appId: '1:49514259492:android:8c2b90cfdc5ec7803524b1',
     messagingSenderId: '49514259492',
     projectId: 'visionary-ai-36658',
     storageBucket: 'visionary-ai-36658.firebasestorage.app',
@@ -60,11 +60,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBdasEzfAMDp-QuUwAlhwltVfrR9OzW0YE',
-    appId: '1:49514259492:ios:cca7293defbe518b3524b1',
+    appId: '1:49514259492:ios:f7b5e9c715de76c43524b1',
     messagingSenderId: '49514259492',
     projectId: 'visionary-ai-36658',
     storageBucket: 'visionary-ai-36658.firebasestorage.app',
-    iosBundleId: 'com.example.visionaryAi',
+    iosBundleId: 'com.cesararellano.visionaryai',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(

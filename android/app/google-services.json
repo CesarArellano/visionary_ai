@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:49514259492:android:c5552edc9223d5703524b1",
+        "mobilesdk_app_id": "1:49514259492:android:8c2b90cfdc5ec7803524b1",
         "android_client_info": {
-          "package_name": "com.example.visionary_ai"
+          "package_name": "com.cesararellano.visionaryai"
         }
       },
       "oauth_client": [],
