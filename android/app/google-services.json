@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "49514259492",
+    "project_id": "visionary-ai-36658",
+    "storage_bucket": "visionary-ai-36658.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:49514259492:android:c5552edc9223d5703524b1",
+        "android_client_info": {
+          "package_name": "com.example.visionary_ai"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgoi8ACFBEzUTQuPwZyr4EWVTB-AgaocY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
